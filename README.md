@@ -42,8 +42,12 @@ npm install
 npm run dev
 
 NOTA: Antes de correr el backend, crea un archivo llamado .env dentro de la carpeta backend con las variables necesarias:
+crear .env en backend con la informacion necesaria:
 PORT=3000
 MONGO_URI=<tu_mongo_uri>
+mismo en frontend un .env para credenciales de inicio:
+VITE_USERNAME="tuuser"
+VITE_PASSWORD="tucontraseña"
 
 ORGANIZACIÓN DEL DESARROLLO:
 
