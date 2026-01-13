@@ -1,0 +1,42 @@
+/* eslint-env node */
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+
+import vehicleRoutes from "./routes/vehicles.js";
+import settingsRoutes from "./routes/setting.js";
+import logRoutes from "./routes/logs.js";
+
+dotenv.config();
+
+const app = express();
+
+app.use(cors({
+  origin: [
+    "https://parkingarg.onrender.com",      // frontend en Render
+    "http://localhost:5173",                 // frontend local
+    "https://parkingargfinal.vercel.app"    // frontend en Vercel
+  ]
+}));
+
+
+app.use(express.json());
+
+app.use("/api/setting", settingsRoutes);
+app.use("/api/vehicles", vehicleRoutes);
+app.use("/api/logs", logRoutes);
+
+app.get("/", (req, res) => {
+  res.send("API Parking funcionando");
+});
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB conectado"))
+  .catch((err) => console.error("Error MongoDB:", err));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () =>
+  console.log(`Backend corriendo en puerto ${PORT}`)
+);
